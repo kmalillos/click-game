@@ -1,0 +1,15 @@
+[
+    {
+        "id": 1,
+        "img": "/assets/img/blue-cup.jpg",
+        "clicked": false
+    },{
+        "id": 2,
+        "img": "/assets/img/darkpink-cup.jpg",
+        "clicked": false
+    },{
+        "id": 3,
+        "img": "/assets/img/gray-cup.jpg",
+        "clicked": false
+    }
+]

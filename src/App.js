@@ -1,25 +1,71 @@
 import React, { Component } from 'react';
 import logo from './logo.svg';
 import './App.css';
+import data from "./data.json";
+import GameCard from "./components/GameCard/index.js"
+
 
 class App extends Component {
+  state = {
+    data,
+    score: 0,
+    topScore: 0
+  }
+
+  componentDidMount() {   
+    this.setState({
+      data: this.randomizeData(this.state.data)
+    }) 
+
+    console.log(data);
+  }
+
+  randomizeData = (data) => {
+    data.sort(function(a, b){return 0.5 - Math.random()});
+    return data;
+  }
+
+  handleClick = (id) => {
+    console.log(id)
+    // check id against data
+    // if clicked, run incorrect guess func
+    // else, run correct guess func
+  }
+
+  // correctFunc() {
+  //   // update score
+  //   // id update to clicked: true
+  //   // call randomizeData
+  // }
+
+  // incorrectFunc() {
+  //   // update score to 0;
+  //   // reset data func: reset imgs to clicked: false
+  //   // call randomizeData
+  // }
+
+  // resetDataFunc() {
+  //   // reset imgs to clicked: false
+  //   // shuffle array
+  //  // update state
+  // }
+
+  
   render() {
     return (
-      <div className="App">
-        <header className="App-header">
-          <img src={logo} className="App-logo" alt="logo" />
-          <p>
-            Edit <code>src/App.js</code> and save to reload.
-          </p>
-          <a
-            className="App-link"
-            href="https://reactjs.org"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            Learn React
-          </a>
-        </header>
+      <div>
+        <h1>test</h1>
+
+        {this.state.data.map(item => (
+          <GameCard
+            id={item.id}
+            key={item.id}
+            image={item.img}
+            handleClick={this.handleClick}
+          />
+          
+        ))}
+
       </div>
     );
   }

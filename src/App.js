@@ -10,53 +10,78 @@ class App extends Component {
 
   state = {
     data,
+    // message: "Click card to begin!",
     score: 0,
-    topScore: 0
+    // topScore: 0
   }
 
-  componentDidMount() {   
+  componentDidMount() {
     this.setState({
       data: this.shuffleCards(this.state.data)
-    }) 
+    })
     // console.log(data);
   }
 
   shuffleCards = (data) => {
-    data.sort(function(a, b){return 0.5 - Math.random()});
+    // JavaScript randomize array function
+    data.sort(function (a, b) { return 0.5 - Math.random() });
     return data;
   }
 
   handleClick = (id) => {
-    // check id against data
-    // if clicked, run incorrect guess func
-    // else, run correct guess func
+    console.log(id)
+
+    let guessedCorrectly = false;
+
+    // updatedData will be the data array with updated clicked properties
+    const updatedData = this.state.data.map(card => {
+      if (card.id === id) {
+        if (!card.clicked) {
+          card.clicked = true;
+          guessedCorrectly = true;
+        }
+      }
+      return card
+    });
+
+    // if guessedCorrectly = true, run the correctGuess function,
+    // else run the wrongGuess function
+    guessedCorrectly ? this.correctGuess(updatedData) : this.wrongGuess(updatedData);
+  };
+
+  correctGuess = (updatedData) => {
+    let newScore = this.state.score;
+    newScore++;
+
+    this.setState({
+      data: this.shuffleCards(updatedData),
+      score: newScore,
+    })
   }
 
-  // correctFunc() {
-  //   // update score
-  //   // id update to clicked: true
-  //   // call randomizeData
-  // }
+  // restarts the game with fresh data
+  wrongGuess = (updatedData) => {
+    this.setState({
+      data: this.resetCards(updatedData),
+      score: 0
+    })
+  }
 
-  // incorrectFunc() {
-  //   // update score to 0;
-  //   // reset data func: reset imgs to clicked: false
-  //   // call randomizeData
-  // }
+  // resets all the clicked properties to false
+  resetCards = (data) => {
+    const resetData = data.map(item => ({ ...item, clicked: false }));
+    // console.log(data);
+    // console.log(resetData);
+    return this.shuffleCards(resetData);
+  };
 
-  // resetDataFunc() {
-  //   // reset imgs to clicked: false
-  //   // shuffle array
-  //  // update state
-  // }
 
-  
   render() {
     return (
       <div>
-        <Title/>
+        <Title />
 
-        <Scoreboard/>
+        <Scoreboard />
 
         {this.state.data.map(card => (
           <GameCards
@@ -65,7 +90,7 @@ class App extends Component {
             image={card.img}
             handleClick={this.handleClick}
           />
-          
+
         ))}
 
       </div>

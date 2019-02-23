@@ -1,8 +1,9 @@
 import React, { Component } from 'react';
 import './App.css';
 import data from "./data.json";
-import Title from "./components/Title/index.js"
-import GameCards from "./components/GameCards/index.js"
+import Title from "./components/Title/index.js";
+import Scoreboard from "./components/Scoreboard/index.js";
+import GameCards from "./components/GameCards/index.js";
 
 
 class App extends Component {
@@ -54,6 +55,8 @@ class App extends Component {
     return (
       <div>
         <Title/>
+
+        <Scoreboard/>
 
         {this.state.data.map(item => (
           <GameCards

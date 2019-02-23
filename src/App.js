@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import './App.css';
 import data from "./data.json";
+import Title from "./components/Title/index.js"
 import GameCards from "./components/GameCards/index.js"
 
 
@@ -52,7 +53,7 @@ class App extends Component {
   render() {
     return (
       <div>
-        <h1>test</h1>
+        <Title/>
 
         {this.state.data.map(item => (
           <GameCards

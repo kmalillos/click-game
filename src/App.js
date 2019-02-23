@@ -7,6 +7,7 @@ import GameCards from "./components/GameCards/index.js";
 
 
 class App extends Component {
+
   state = {
     data,
     score: 0,
@@ -15,18 +16,17 @@ class App extends Component {
 
   componentDidMount() {   
     this.setState({
-      data: this.randomizeData(this.state.data)
+      data: this.shuffleCards(this.state.data)
     }) 
     // console.log(data);
   }
 
-  randomizeData = (data) => {
+  shuffleCards = (data) => {
     data.sort(function(a, b){return 0.5 - Math.random()});
     return data;
   }
 
   handleClick = (id) => {
-    console.log(id)
     // check id against data
     // if clicked, run incorrect guess func
     // else, run correct guess func
@@ -58,11 +58,11 @@ class App extends Component {
 
         <Scoreboard/>
 
-        {this.state.data.map(item => (
+        {this.state.data.map(card => (
           <GameCards
-            key={item.id}
-            id={item.id}
-            image={item.img}
+            key={card.id}
+            id={card.id}
+            image={card.img}
             handleClick={this.handleClick}
           />
           

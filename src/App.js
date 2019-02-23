@@ -1,8 +1,7 @@
 import React, { Component } from 'react';
-import logo from './logo.svg';
 import './App.css';
 import data from "./data.json";
-import GameCard from "./components/GameCard/index.js"
+import GameCards from "./components/GameCards/index.js"
 
 
 class App extends Component {
@@ -16,8 +15,7 @@ class App extends Component {
     this.setState({
       data: this.randomizeData(this.state.data)
     }) 
-
-    console.log(data);
+    // console.log(data);
   }
 
   randomizeData = (data) => {
@@ -57,9 +55,9 @@ class App extends Component {
         <h1>test</h1>
 
         {this.state.data.map(item => (
-          <GameCard
-            id={item.id}
+          <GameCards
             key={item.id}
+            id={item.id}
             image={item.img}
             handleClick={this.handleClick}
           />

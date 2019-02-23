@@ -3,7 +3,7 @@ import "./style.css";
 
 const GameCards = (props) => {
     return (
-        <div>
+        <div className="wrapper">
             <div
                 className="gamecard"
                 style={{ backgroundImage: `url("${props.image}")` }}

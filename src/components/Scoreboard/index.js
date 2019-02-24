@@ -1,11 +1,11 @@
 import React from "react";
 
-const Scoreboard = () => {
+const Scoreboard = (props) => {
 
     return (
         <div className="card">
             <div className="card-body text-center">
-                Score: code for score here
+                Score: {props.score}
             </div>
         </div>
     )

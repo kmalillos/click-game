@@ -1,6 +1,5 @@
 import React, { Component } from 'react';
-import './App.css';
-import data from "./data.json";
+import data from "./utils/data.json";
 import Title from "./components/Title/index.js";
 import Scoreboard from "./components/Scoreboard/index.js";
 import GameCards from "./components/GameCards/index.js";
@@ -29,47 +28,44 @@ class App extends Component {
   }
 
   handleClick = (id) => {
-    console.log(id)
-
-    let guessedCorrectly = false;
-
-    // updatedData will be the data array with updated clicked properties
-    const updatedData = this.state.data.map(card => {
+    // console.log(id);
+    let newClicked = false;
+    const newState = this.state.data.map(card => {
       if (card.id === id) {
         if (!card.clicked) {
           card.clicked = true;
-          guessedCorrectly = true;
+          newClicked = true;
         }
       }
-      return card
-    });
+      return card;
+    }); 
 
     // if guessedCorrectly = true, run the correctGuess function,
     // else run the wrongGuess function
-    guessedCorrectly ? this.correctGuess(updatedData) : this.wrongGuess(updatedData);
-  };
+    newClicked ? this.correctGuess(newState) : this.wrongGuess(newState);
+  }
 
-  correctGuess = (updatedData) => {
+  correctGuess = (newState) => {
     let newScore = this.state.score;
     newScore++;
 
     this.setState({
-      data: this.shuffleCards(updatedData),
+      data: this.shuffleCards(newState),
       score: newScore,
     })
   }
 
   // restarts the game with fresh data
-  wrongGuess = (updatedData) => {
+  wrongGuess = (newState) => {
     this.setState({
-      data: this.resetCards(updatedData),
+      data: this.resetCards(newState),
       score: 0
     })
   }
 
   // resets all the clicked properties to false
   resetCards = (data) => {
-    const resetData = data.map(item => ({ ...item, clicked: false }));
+    const resetData = data.map(card => ({ ...card, clicked: false }));
     // console.log(data);
     // console.log(resetData);
     return this.shuffleCards(resetData);
@@ -81,7 +77,9 @@ class App extends Component {
       <div>
         <Title />
 
-        <Scoreboard />
+        <Scoreboard 
+          score={this.state.score}
+        />
 
         {this.state.data.map(card => (
           <GameCards

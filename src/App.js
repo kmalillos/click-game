@@ -10,7 +10,7 @@ class App extends Component {
   state = {
     data,
     score: 0,
-    topScore: 0,
+    topscore: 0,
     // alert: "Click card to begin!",
   }
 
@@ -51,12 +51,12 @@ class App extends Component {
     newScore++;
 
     // checks to see if score is higher than the topscore, then updates state
-    let topScore = Math.max(newScore, this.state.topScore);
+    let topscore = Math.max(newScore, this.state.topscore);
 
     this.setState({
       data: this.shuffleCards(newState),
       score: newScore,
-      topscore: topScore
+      topscore: topscore
     })
   }
 
@@ -75,7 +75,6 @@ class App extends Component {
     // console.log(resetData);
     return this.shuffleCards(resetData);
   };
-
 
   render() {
     return (

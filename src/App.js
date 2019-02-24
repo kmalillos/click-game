@@ -9,9 +9,9 @@ class App extends Component {
 
   state = {
     data,
-    // message: "Click card to begin!",
     score: 0,
-    // topScore: 0
+    topScore: 0,
+    // alert: "Click card to begin!",
   }
 
   componentDidMount() {
@@ -30,6 +30,7 @@ class App extends Component {
   handleClick = (id) => {
     // console.log(id);
     let newClicked = false;
+
     const newState = this.state.data.map(card => {
       if (card.id === id) {
         if (!card.clicked) {
@@ -49,9 +50,13 @@ class App extends Component {
     let newScore = this.state.score;
     newScore++;
 
+    // checks to see if score is higher than the topscore, then updates state
+    let topScore = Math.max(newScore, this.state.topScore);
+
     this.setState({
       data: this.shuffleCards(newState),
       score: newScore,
+      topscore: topScore
     })
   }
 
@@ -79,6 +84,7 @@ class App extends Component {
 
         <Scoreboard 
           score={this.state.score}
+          topscore={this.state.topscore}
         />
 
         {this.state.data.map(card => (
